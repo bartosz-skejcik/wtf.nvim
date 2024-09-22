@@ -11,7 +11,7 @@ function M.setup(opts)
     context = true,
     language = "english",
     groq_api_key = nil,
-    groq_model_id = "gpt-3.5-turbo",
+    groq_model_id = "llama-3.1-70b-versatile",
     popup_type = "popup",
     search_engine = "google",
     hooks = {
