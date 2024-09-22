@@ -90,9 +90,9 @@ use({
     -- Default AI popup type
     popup_type = "popup" | "horizontal" | "vertical",
     -- An alternative way to set your API key
-    openai_api_key = "sk-xxxxxxxxxxxxxx",
+    groq_api_key = "xxxxxxxxxxxxxx",
     -- ChatGPT Model
-    openai_model_id = "gpt-3.5-turbo",
+    groq_model_id = "llama-3.1-70b-versatile",
     -- Send code as well as diagnostics
     context = true,
     -- Set your preferred language for the response

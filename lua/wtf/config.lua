@@ -10,8 +10,8 @@ function M.setup(opts)
     chat_dir = vim.fn.stdpath("data"):gsub("/$", "") .. "/wtf/chats",
     context = true,
     language = "english",
-    openai_api_key = nil,
-    openai_model_id = "gpt-3.5-turbo",
+    groq_api_key = nil,
+    groq_model_id = "gpt-3.5-turbo",
     popup_type = "popup",
     search_engine = "google",
     hooks = {
@@ -26,8 +26,8 @@ function M.setup(opts)
 
   vim.validate({
     winhighlight = { opts.winhighlight, "string" },
-    openai_api_key = { opts.openai_api_key, { "string", "nil" } },
-    openai_model_id = { opts.openai_model_id, "string" },
+    groq_api_key = { opts.groq_api_key, { "string", "nil" } },
+    groq_model_id = { opts.groq_model_id, "string" },
     language = { opts.language, "string" },
     search_engine = {
       opts.search_engine,
