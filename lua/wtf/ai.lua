@@ -16,6 +16,11 @@ local function get_content_between_lines(start_line, end_line)
   return table.concat(lines, "\n")
 end
 
+local function get_entire_file_content()
+  local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+  return table.concat(lines, "\n")
+end
+
 M.diagnose = function(line1, line2, instructions)
   -- Return the user to normal mode
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<esc>", true, false, true), "x", true)
@@ -46,6 +51,7 @@ M.diagnose = function(line1, line2, instructions)
   end
 
   local code = get_content_between_lines(line1, line2)
+  local entire_file_content = get_entire_file_content()
 
   local payload = "The programming language is "
     .. programming_language
@@ -55,6 +61,8 @@ M.diagnose = function(line1, line2, instructions)
   if should_send_code then
     payload = payload .. "This is the code for context: \n" .. "```\n" .. code .. "\n```"
   end
+
+  payload = payload .. "\nThis is the entire file content for additional context: \n" .. "```\n" .. entire_file_content .. "\n```"
 
   if config.options.additional_instructions then
     payload = payload .. "\n" .. config.options.additional_instructions

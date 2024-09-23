@@ -9,7 +9,7 @@ function M.setup(opts)
     additional_instructions = nil,
     chat_dir = vim.fn.stdpath("data"):gsub("/$", "") .. "/wtf/chats",
     context = true,
-    language = "english",
+    language = "english",  -- Default language option
     provider = "openai",  -- New option for provider
     groq_api_key = nil,
     openai_api_key = nil,  -- New option for OpenAI API key
@@ -38,7 +38,7 @@ function M.setup(opts)
     openai_model_id = { opts.openai_model_id, "string" },
     anthropic_model_id = { opts.anthropic_model_id, "string" },
     provider = { opts.provider, "string" },
-    language = { opts.language, "string" },
+    language = { opts.language, "string" },  -- Validate language option
     search_engine = {
       opts.search_engine,
       function(search_engine)
