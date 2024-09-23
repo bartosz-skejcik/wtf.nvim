@@ -10,8 +10,13 @@ function M.setup(opts)
     chat_dir = vim.fn.stdpath("data"):gsub("/$", "") .. "/wtf/chats",
     context = true,
     language = "english",
+    provider = "openai",  -- New option for provider
     groq_api_key = nil,
+    openai_api_key = nil,  -- New option for OpenAI API key
+    anthropic_api_key = nil,  -- New option for Anthropic API key
     groq_model_id = "llama-3.1-70b-versatile",
+    openai_model_id = "gpt-3.5-turbo",  -- Default model for OpenAI
+    anthropic_model_id = "claude-v1",  -- Default model for Anthropic
     popup_type = "popup",
     search_engine = "google",
     hooks = {
@@ -27,7 +32,12 @@ function M.setup(opts)
   vim.validate({
     winhighlight = { opts.winhighlight, "string" },
     groq_api_key = { opts.groq_api_key, { "string", "nil" } },
+    openai_api_key = { opts.openai_api_key, { "string", "nil" } },
+    anthropic_api_key = { opts.anthropic_api_key, { "string", "nil" } },
     groq_model_id = { opts.groq_model_id, "string" },
+    openai_model_id = { opts.openai_model_id, "string" },
+    anthropic_model_id = { opts.anthropic_model_id, "string" },
+    provider = { opts.provider, "string" },
     language = { opts.language, "string" },
     search_engine = {
       opts.search_engine,

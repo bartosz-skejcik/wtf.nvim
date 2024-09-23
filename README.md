@@ -21,14 +21,17 @@ https://github.com/piersolenski/wtf.nvim/assets/1285419/6697d9a5-c81c-4e54-b375-
 
 ## 🔩 Installation
 
-In order to use the AI functionality, set the environment variable `OPENAI_API_KEY` to your [openai api key](https://platform.openai.com/account/api-keys) (the search functionality will still work without it).
+In order to use the AI functionality, set the environment variable for your chosen provider's API key:
+- `OPENAI_API_KEY` for OpenAI
+- `GROQ_API_KEY` for Groq
+- `ANTHROPIC_API_KEY` for Anthropic
 
 Install the plugin with your preferred package manager:
 
 ```lua
 -- Packer
 use({
-  "piersolenski/wtf.nvim",
+  "bartosz-skejcik/wtf.nvim",
     config = function()
       require("wtf").setup()
     end,
@@ -39,7 +42,7 @@ use({
 
 -- Lazy
 {
-	"piersolenski/wtf.nvim",
+	"bartosz-skejcik/wtf.nvim",
 	dependencies = {
 		"MunifTanjim/nui.nvim",
 	},
@@ -51,7 +54,7 @@ use({
 			function()
 				require("wtf").ai()
 			end,
-			desc = "Debug diagnostic with AI",
+			desc = "Debug diagnostic [W]ith [A]I",
 		},
 		{
 			mode = { "n" },
@@ -59,7 +62,7 @@ use({
 			function()
 				require("wtf").search()
 			end,
-			desc = "Search diagnostic with Google",
+			desc = "[W]tf [S]earch diagnostic with Google",
 		},
 		{
 			mode = { "n" },
@@ -67,7 +70,7 @@ use({
 			function()
 				require("wtf").history()
 			end,
-			desc = "Populate the quickfix list with previous chat history",
+			desc = "[W]tf Populate the quickfix list with previous chat [H]istory",
 		},
 		{
 			mode = { "n" },
@@ -75,7 +78,7 @@ use({
 			function()
 				require("wtf").grep_history()
 			end,
-			desc = "Grep previous chat history with Telescope",
+			desc = "[W]tf [G]rep previous chat history with Telescope",
 		},
 	},
 }
@@ -89,10 +92,16 @@ use({
     chat_dir = vim.fn.stdpath("data"):gsub("/$", "") .. "/wtf/chats",
     -- Default AI popup type
     popup_type = "popup" | "horizontal" | "vertical",
-    -- An alternative way to set your API key
+    -- Provider for AI (options: "openai", "groq", "anthropic")
+    provider = "openai",
+    -- API keys for different providers
     groq_api_key = "xxxxxxxxxxxxxx",
-    -- ChatGPT Model
+    openai_api_key = "xxxxxxxxxxxxxx",
+    anthropic_api_key = "xxxxxxxxxxxxxx",
+    -- Models for different providers
     groq_model_id = "llama-3.1-70b-versatile",
+    openai_model_id = "gpt-3.5-turbo",
+    anthropic_model_id = "claude-v1",
     -- Send code as well as diagnostics
     context = true,
     -- Set your preferred language for the response
@@ -119,7 +128,7 @@ To use it, whenever you have an hint, warning or error in an LSP enabled environ
 
 | Command | Modes | Description |
 | -- | -- | -- |
-| `:Wtf [additional_instructions]` | Normal, Visual | Sends the diagnostic messages for a line or visual range to ChatGPT, along with the code if the context has been set to `true`. Additional instructions can also be specified, which might be useful if you want to refine the response further.
+| `:Wtf [additional_instructions]` | Normal, Visual | Sends the diagnostic messages for a line or visual range to the configured AI provider, along with the code if the context has been set to `true`. Additional instructions can also be specified, which might be useful if you want to refine the response further.
 | `:WtfSearch [search_engine]` | Normal | Uses a search engine (defaults to the one in the setup or Google if not provided) to search for the **first** diagnostic. It will attempt to filter out unrelated strings specific to your local environment, such as file paths, for broader results. 
 | `:WtfHistory` | Normal | Use the quickfix list to see your previous chats. 
 | `:WtfGrepHistory` | Normal | Grep your previous chats via [Telescope](https://github.com/nvim-telescope/telescope.nvim!). 
