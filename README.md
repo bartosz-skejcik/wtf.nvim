@@ -19,6 +19,12 @@ Why spend time copying and pasting, or worse yet, typing out diagnostic messages
 
 https://github.com/piersolenski/wtf.nvim/assets/1285419/6697d9a5-c81c-4e54-b375-bbe900724077
 
+### Learning Mode
+
+#### Explain Code
+
+Use the "Explain Code" feature to get detailed explanations of what a selected piece of code does and why it works. This feature helps developers learn and improve their skills over time.
+
 ## 🔩 Installation
 
 In order to use the AI functionality, set the environment variable for your chosen provider's API key:
