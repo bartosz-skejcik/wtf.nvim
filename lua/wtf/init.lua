@@ -26,6 +26,23 @@ function M.ai(opts)
   end
 end
 
+function M.explain_code(opts)
+  if opts and opts.line1 and opts.line2 then
+    return ai.explain_code(opts.line1, opts.line2)
+  else
+    local mode = vim.api.nvim_get_mode().mode
+    local is_visual = mode:match("^[vV]")
+
+    if is_visual then
+      local start_line, end_line = vim.fn.getpos("v")[2], vim.fn.getcurpos()[2]
+      return ai.explain_code(start_line, end_line)
+    else
+      local current_line = vim.fn.line(".")
+      return ai.explain_code(current_line, current_line)
+    end
+  end
+end
+
 function M.search(opts)
   return search(opts)
 end

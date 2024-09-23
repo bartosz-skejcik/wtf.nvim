@@ -24,6 +24,7 @@ function M.setup(opts)
       request_finished = nil,
     },
     winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
+    learning_mode = false,  -- New option for learning mode
   }
 
   -- Merge default_opts with opts
@@ -76,6 +77,7 @@ function M.setup(opts)
       opts.hooks.request_finished,
       { "function", "nil" },
     },
+    learning_mode = { opts.learning_mode, "boolean" },  -- Validate learning mode option
   })
 
   M.options = vim.tbl_extend("force", M.options, opts)

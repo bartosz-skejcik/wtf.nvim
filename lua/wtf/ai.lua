@@ -104,6 +104,49 @@ M.diagnose = function(line1, line2, instructions)
   end)
 end
 
+M.explain_code = function(line1, line2)
+  -- Return the user to normal mode
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<esc>", true, false, true), "x", true)
+
+  local code = get_content_between_lines(line1, line2)
+  local entire_file_content = get_entire_file_content()
+
+  local payload = "Explain the following code in detail, including what it does and why it works:\n"
+    .. "```\n" .. code .. "\n```"
+    .. "\nThis is the entire file content for additional context: \n" .. "```\n" .. entire_file_content .. "\n```"
+
+  local language = config.options.language
+  if language and language ~= "english" then
+    payload = payload .. "\nRespond only in " .. language
+  end
+
+  vim.notify("Generating explanation...", vim.log.levels.INFO)
+
+  local messages = {
+    {
+      role = "system",
+      content = [[You are an expert coder and helpful assistant who can help explain code in detail, including what it does and why it works.
+      When appropriate, give explanations with code snippets as fenced codeblocks with a language identifier to enable syntax highlighting.
+      Never show line numbers on solutions, so they are easily copy and pastable.]],
+    },
+    {
+      role = "user",
+      content = payload,
+    },
+  }
+
+  return gpt.request(messages, function(response)
+    if response == nil then
+      return nil
+    end
+
+    local message = response.choices[1].message.content
+
+    save_chat(message)
+    display_popup(message)
+  end)
+end
+
 M.get_status = gpt.get_status
 
 return M

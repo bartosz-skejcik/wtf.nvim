@@ -43,3 +43,13 @@ end, {
     return completions
   end,
 })
+
+vim.api.nvim_create_user_command("WtfExplain", function(opts)
+  wtf.explain_code({
+    line1 = opts.line1,
+    line2 = opts.line2,
+  })
+end, {
+  range = true,
+  nargs = 0,
+})
