@@ -10,7 +10,7 @@ function M.setup(opts)
     chat_dir = vim.fn.stdpath("data"):gsub("/$", "") .. "/wtf/chats",
     context = true,
     language = "english",  -- Default language option
-    provider = "openai",  -- New option for provider
+    provider = "groq",  -- Default provider 
     groq_api_key = nil,
     openai_api_key = nil,  -- New option for OpenAI API key
     anthropic_api_key = nil,  -- New option for Anthropic API key
