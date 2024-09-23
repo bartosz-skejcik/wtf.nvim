@@ -86,6 +86,14 @@ use({
 			end,
 			desc = "[W]tf [G]rep previous chat history with Telescope",
 		},
+        {
+            mode = { "n", "x" },
+            "<leader>we",
+            function()
+                require("wtf").explain_code()
+            end,
+            desc = "[W]tf [E]xplain code with AI",
+        },
 	},
 }
 ```
